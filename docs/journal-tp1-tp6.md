@@ -1,10 +1,7 @@
-# Journal de bord TP1 à TP6
+## TP2
 
-## TP1
-
-- T0 : structure conforme (7 dossiers + .github + .gitignore)
-- T1 : 3 failed, 31 passed, 4 skipped
-- T2 : 12 passed / 34 passed, 4 skipped
-- T3 : push OK, 37 passed, 1 failed
-- T5 : 2 auteurs dans git shortlog, 3 passed
-- T6 : 0 erreur, 38 passed, CI verte
+- C1 : 2 failed, 38 passed, 2 skipped
+- C2 : 290 avis (145/145)
+- C3 : F1 macro 0.879, metrics.json seul dans Git
+- C4 : matrice 27 2 / 5 24, 7 erreurs sur 58 (avis mitigés)
+- C5 : Allocine, F1 0.920, 42 passed, CI verte
