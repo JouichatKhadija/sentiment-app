@@ -1,4 +1,4 @@
-"""Tests aux limites du contrat d'entrée (TP4, étape B). À COMPLÉTER.
+"""Tests aux limites du contrat d'entrée (TP4, étape B).
 
 PredictRequest promet un champ « text », chaîne de 1 à 2000 caractères.
 Ce fichier vérifie cette promesse à ses frontières, puis au hasard (hypothesis).
@@ -28,26 +28,47 @@ def en_json(valeur: object) -> bytes:
     return json.dumps(valeur).encode("utf-8")
 
 
-# Étape B.1 : huit cas au moins, chacun avec son code attendu. Deux sont donnés.
-# À ajouter : texte fait d'espaces, un seul caractère, exactement 2000 caractères,
-# champ absent, champ d'un autre type (42), corps qui n'est pas du JSON (b"pas du json").
+# Étape B.1 : huit cas aux frontières du contrat.
 CAS = [
     pytest.param(en_json({"text": ""}), 422, id="texte-vide"),
+    pytest.param(en_json({"text": "   "}), 422, id="espaces-seuls"),
+    pytest.param(en_json({"text": "a"}), 200, id="un-caractere"),
+    pytest.param(en_json({"text": "a" * 2000}), 200, id="2000-caracteres"),
     pytest.param(en_json({"text": "a" * 2001}), 422, id="2001-caracteres"),
+    pytest.param(en_json({}), 422, id="champ-absent"),
+    pytest.param(en_json({"text": 42}), 422, id="mauvais-type"),
+    pytest.param(b"pas du json", 422, id="corps-non-json"),
 ]
 
 
 @pytest.mark.parametrize("corps, code_attendu", CAS)
 def test_frontieres_du_contrat(client, corps, code_attendu):
     reponse = client.post("/predict", content=corps, headers={"Content-Type": "application/json"})
-    assert reponse.status_code == code_attendu
-    # Étape B.2 : pour chaque 422, vérifiez aussi la FORME de la réponse :
-    # « detail » doit être la liste d'erreurs standard de FastAPI (objets avec loc, msg, type).
+    assert reponse.status_code == code_attendu, reponse.text
+    if code_attendu == 422:
+        detail = reponse.json()["detail"]
+        assert isinstance(detail, list), f"detail doit être une liste, reçu {detail!r}"
+        assert detail and "loc" in detail[0] and "msg" in detail[0] and "type" in detail[0]
 
 
-# Étape B.5 : deux tests de propriété avec hypothesis, dans ce fichier.
-#   from hypothesis import given, settings, strategies as st
-#   1. tout texte de 1 à 2000 caractères contenant un caractère non blanc :
-#      200, étiquette du contrat, score entre 0 et 1 ;
-#   2. tout texte fait uniquement de blancs : 422, sous la forme standard.
-# Pensez à @settings(deadline=None) : le premier appel peut être plus lent que les autres.
+# Étape B.5 : deux tests de propriété avec hypothesis.
+from hypothesis import given, settings, strategies as st  # noqa: E402
+
+
+@given(st.text(min_size=1, max_size=2000).filter(lambda s: s.strip()))
+@settings(deadline=None, max_examples=50)
+def test_texte_non_blanc_200(client, texte):
+    reponse = client.post("/predict", json={"text": texte})
+    assert reponse.status_code == 200, reponse.text
+    corps = reponse.json()
+    assert corps["label"] in {"POSITIVE", "NEGATIVE", "INDETERMINE"}
+    assert 0.0 <= corps["score"] <= 1.0
+
+
+@given(st.text(alphabet=" \t\n\r\x0b\x0c", min_size=1, max_size=2000))
+@settings(deadline=None, max_examples=50)
+def test_texte_blancs_422(client, texte):
+    reponse = client.post("/predict", json={"text": texte})
+    assert reponse.status_code == 422, reponse.text
+    detail = reponse.json()["detail"]
+    assert isinstance(detail, list)
