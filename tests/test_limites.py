@@ -52,7 +52,8 @@ def test_frontieres_du_contrat(client, corps, code_attendu):
 
 
 # Étape B.5 : deux tests de propriété avec hypothesis.
-from hypothesis import given, settings, strategies as st  # noqa: E402
+from hypothesis import given, settings  # noqa: E402
+from hypothesis import strategies as st  # noqa: E402
 
 
 @given(st.text(min_size=1, max_size=2000).filter(lambda s: s.strip()))
