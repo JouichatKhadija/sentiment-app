@@ -1,7 +1,18 @@
-## TP2
+## \## TP3
 
-- C1 : 2 failed, 38 passed, 2 skipped
-- C2 : 290 avis (145/145)
-- C3 : F1 macro 0.879, metrics.json seul dans Git
-- C4 : matrice 27 2 / 5 24, 7 erreurs sur 58 (avis mitigés)
-- C5 : Allocine, F1 0.920, 42 passed, CI verte
+## 
+
+## \- T14 : 48 passed
+
+## \- T15 : GET /health → 200, status OK
+
+## \- T16 : POST /predict positif → POSITIVE 0.777
+
+## \- T17 : POST /predict négatif → NEGATIVE 0.7465
+
+## \- T18 : 3 refus 422
+
+## \- T19 : push OK, CI verte
+
+## \- T20 : FileNotFoundError sans modèle
+
