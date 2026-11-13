@@ -1,1 +1,21 @@
 text,attendu,difficulte,erreur_connue
+"Commande reçue en deux jours, emballage soigné",POSITIVE,,
+"Pas déçu du tout, je recommande",POSITIVE,négation,
+"Arrivé cassé, bravo le transporteur",NEGATIVE,ironie,
+"Bof, sans plus, ça fait le job",POSITIVE,mitigé,
+"Le service client a mis trois semaines à répondre",NEGATIVE,,
+"Vraiment top, je recommande à tous",POSITIVE,,
+"Ne tient pas la charge annoncée",NEGATIVE,négation,négation
+"Produit conforme, livraison rapide",POSITIVE,,
+"Fuyez, c'est de l'arnaque",NEGATIVE,,
+"Pas mal du tout pour le prix",POSITIVE,mitigé,négation
+"Le colis est arrivé ouvert, déçu",NEGATIVE,,mitigé
+"Exactement ce que je cherchais",POSITIVE,,
+"Je ne recommande pas du tout",NEGATIVE,négation,négation
+"Correct, sans être exceptionnel",POSITIVE,mitigé,
+"Très bon rapport qualité prix",POSITIVE,,
+"Le mode d'emploi est incompréhensible",NEGATIVE,,
+"Rien à redire, parfait",POSITIVE,,
+"Produit qui casse au bout d'une semaine",NEGATIVE,,
+"Un peu cher mais efficace",POSITIVE,mitigé,
+"Livraison à la bourre, produit moyen",NEGATIVE,,mitigé
