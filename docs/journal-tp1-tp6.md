@@ -1,18 +1,14 @@
-## \## TP3
+## \## TP4
 
 ## 
 
-## \- T14 : 48 passed
+## \- T21 : 1 failed, 51 passed, 1 skipped ; couverture 91 % ; ruff 11 remarques
 
-## \- T15 : GET /health → 200, status OK
+## \- T22/T23 : 10 passed ×3
 
-## \- T16 : POST /predict positif → POSITIVE 0.777
+## \- T24/T25 : 78 passed, 5 xfailed
 
-## \- T17 : POST /predict négatif → NEGATIVE 0.7465
+## \- T26 : 4 passed, couverture 97 %
 
-## \- T18 : 3 refus 422
-
-## \- T19 : push OK, CI verte
-
-## \- T20 : FileNotFoundError sans modèle
+## \- T27 : ruff All checks passed!, mypy Success, CI verte
 
