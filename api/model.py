@@ -21,9 +21,9 @@ class SentimentClassifier:
         charger_modele()  # échoue immédiatement si le joblib manque : on ne démarre pas sans modèle
 
     def predict(self, text: str) -> dict:
-        """Renvoie {'label': 'POSITIVE'|'NEGATIVE', 'score': float, 'text': aperçu}."""
-        r = _predict(text)  # lève ValueError si le texte est vide
-        return {"label": r["label"].upper(), "score": r["score"], "text": text[:100]}
+        """Renvoie {'label': 'POSITIVE'|'NEGATIVE'|'INDETERMINE', 'score': float, 'text': aperçu}."""
+        r = _predict(text)  # lève ValueError si le texte est vide ; applique déjà le seuil
+        return {"label": r["label"], "score": r["score"], "text": text[:100]}
 
 
 def load_model() -> SentimentClassifier:

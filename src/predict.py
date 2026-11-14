@@ -13,6 +13,8 @@ import joblib
 
 MODELE = Path(__file__).resolve().parents[1] / "models" / "sentiment.joblib"
 
+SEUIL_ABSTENTION = 0.60
+
 
 @lru_cache(maxsize=1)
 def charger_modele():
@@ -23,13 +25,16 @@ def charger_modele():
 
 
 def predict(texte: str) -> dict:
-    """Renvoie {'label': 'positive'|'negative', 'score': float}."""
+    """Renvoie {'label': 'POSITIVE'|'NEGATIVE'|'INDETERMINE', 'score': float}."""
     if not isinstance(texte, str) or not texte.strip():
         raise ValueError("texte vide")
     pipeline = charger_modele()
     etiquette = pipeline.predict([texte])[0]
     score = float(pipeline.predict_proba([texte]).max())
-    return {"label": etiquette, "score": round(score, 4)}
+    label = str(etiquette).upper()  # "positive" -> "POSITIVE", "negative" -> "NEGATIVE"
+    if score < SEUIL_ABSTENTION:
+        label = "INDETERMINE"
+    return {"label": label, "score": round(score, 4)}
 
 
 def main() -> int:
