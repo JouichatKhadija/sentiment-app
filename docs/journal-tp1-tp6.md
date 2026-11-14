@@ -1,14 +1,18 @@
-## \## TP4
+## \## TP5
 
 ## 
 
-## \- T21 : 1 failed, 51 passed, 1 skipped ; couverture 91 % ; ruff 11 remarques
+## \- T28 : 95 passed, 1 warning
 
-## \- T22/T23 : 10 passed ×3
+## \- T29 : page affiche « API prête : tfidf-logreg (TP2, models/sentiment.joblib) »
 
-## \- T24/T25 : 78 passed, 5 xfailed
+## \- T30 : avis positif 78 %, avis négatif 75 %
 
-## \- T26 : 4 passed, couverture 97 %
+## \- T31 : « Je ne sais pas », 52 %, message d'abstention
 
-## \- T27 : ruff All checks passed!, mypy Success, CI verte
+## \- T32 : « Texte refusé » (422), « API injoignable » (API arrêtée)
+
+## \- T33 : 6 avis, résumé {INDETERMINE: 1, NEGATIVE: 2, POSITIVE: 3}, téléchargement OK
+
+## \- T34 : docs/semaine5.md complété, CI verte
 
