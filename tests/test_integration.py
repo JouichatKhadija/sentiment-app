@@ -1,11 +1,10 @@
 """Tests d'intégration : l'API telle qu'elle tourne (TP4, étape D)."""
-from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
 
 from api import main as api_main
-from src import predict
+from sentiment_app import predict
 
 
 @pytest.fixture
@@ -21,10 +20,13 @@ def test_demarrage_reel(client):
 
 
 def test_modele_absent_refuse_de_demarrer(monkeypatch):
-    monkeypatch.setattr(predict, "MODELE", Path("nexiste-pas.joblib"))
+    # On force le chemin du modèle vers un fichier qui n'existe pas
+    monkeypatch.setenv("SENTIMENT_MODELE", "nexiste-pas.joblib")
     predict.charger_modele.cache_clear()
     with pytest.raises(FileNotFoundError):
         predict.charger_modele()
+    # On nettoie
+    monkeypatch.delenv("SENTIMENT_MODELE")
     predict.charger_modele.cache_clear()
 
 
